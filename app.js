@@ -15,7 +15,17 @@ canvas.height = height;
 const ctx = canvas.getContext("2d");
 clearRect();
 
+let holdPress;
+
 canvas.addEventListener("mousemove", handleMouseMove);
+canvas.addEventListener("mousedown", function (e) {
+  holdPress = setInterval(function () {
+    handleClick(e);
+  }, 100);
+});
+canvas.addEventListener("mouseup", function () {
+  clearInterval(holdPress);
+});
 canvas.addEventListener("click", handleClick);
 
 class Player {
@@ -155,15 +165,6 @@ function animate() {
     ctx.fillRect(0, 0, width, height);
     ctx.fill();
 
-    bullets.forEach((bullet, bi) => {
-      if (bullet.remove()) {
-        bullets.splice(bi, 1);
-      }
-
-      bullet.update();
-      bullet.draw();
-    });
-
     enemies.forEach((enemy, ei) => {
       bullets.forEach((bullet, bi) => {
         if (
@@ -191,6 +192,7 @@ function animate() {
       if (collision(enemy.x, enemy.y, enemy.r, player.x, player.y, player.r)) {
         console.log("oyun bitti");
         gameOverMusic.play();
+        clearInterval(holdPress);
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
                                        Score: ${scoreCount}<br/>
@@ -205,6 +207,16 @@ function animate() {
 
       enemy.update();
       enemy.draw();
+    });
+
+    bullets.forEach((bullet, bi) => {
+      if (bullet.remove()) {
+        bullets.splice(bi, 1);
+        clearInterval(holdPress);
+      }
+
+      bullet.update();
+      bullet.draw();
     });
 
     player.draw();
@@ -228,7 +240,7 @@ function init() {
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 5; //max. düşman
+  maxEnemy = 1; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
