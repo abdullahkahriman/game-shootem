@@ -14,7 +14,7 @@ body {
 }
 
 *:focus {
-    outline: 0;
+  outline: 0;
 }
 
 button {
@@ -39,7 +39,7 @@ canvas {
 }
 
 #start {
-    min-width: 15%;
+  min-width: 15%;
   position: absolute;
   top: 0;
   opacity: 0;
@@ -57,18 +57,18 @@ canvas {
   transition: 300ms all ease-in;
 }
 #start * {
-    margin: 3px 0;
+  margin: 3px 0;
 }
 #start button {
-    background: green;
-    padding: 5px 10px;
-    color: #fff;
-    border-radius: 5px;
-    margin-top: 10px;
-    text-transform: uppercase;
+  background: green;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
 
 .show {
-    opacity: 1 !important;
-    top: 50% !important;
+  opacity: 1 !important;
+  top: 50% !important;
 }

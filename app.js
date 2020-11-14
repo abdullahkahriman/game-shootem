@@ -3,6 +3,9 @@ const killDiv = document.getElementById("kill");
 const startDiv = document.getElementById("start");
 const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
+const shotMusic = createAudio("shot.wav");
+const gameOverMusic = createAudio("game-over.wav");
+
 const canvas = document.getElementById("canvas");
 const width = window.innerWidth,
   height = window.innerHeight;
@@ -166,7 +169,10 @@ function animate() {
         if (
           collision(enemy.x, enemy.y, enemy.r, bullet.x, bullet.y, bullet.r)
         ) {
+          shotMusic.pause();
+          shotMusic.currentTime = 0;
           console.log("hedef vuruldu");
+          shotMusic.play();
           if (enemy.r < 15) {
             enemies.splice(ei, 1);
             scoreCount += 25;
@@ -184,6 +190,7 @@ function animate() {
 
       if (collision(enemy.x, enemy.y, enemy.r, player.x, player.y, player.r)) {
         console.log("oyun bitti");
+        gameOverMusic.play();
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
                                        Score: ${scoreCount}<br/>
@@ -206,6 +213,13 @@ function animate() {
   }
 }
 
+function createAudio(src) {
+  const audio = document.createElement("audio");
+  audio.src = src;
+  document.querySelector("body").appendChild(audio);
+  return audio;
+}
+
 function init() {
   playing = true;
   startDiv.classList.remove("show");
@@ -214,7 +228,7 @@ function init() {
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 1; //max. düşman
+  maxEnemy = 5; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
