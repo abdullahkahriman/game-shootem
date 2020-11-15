@@ -300,7 +300,7 @@ function init(isPlaying) {
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 5; //max. düşman
+  maxEnemy = 1; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
