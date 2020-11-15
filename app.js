@@ -1,5 +1,8 @@
 const scoreDiv = document.getElementById("score");
 const killDiv = document.getElementById("kill");
+const shotDiv = document.getElementById("shot");
+const hitDiv = document.getElementById("hit");
+const missDiv = document.getElementById("miss");
 const startDiv = document.getElementById("start");
 const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
@@ -81,12 +84,10 @@ class Circle {
     this.life = life;
   }
   draw() {
-    console.log(this.life);
     ctx.fillStyle = this.c;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     if (this.life > 0) {
-      console.log(this.r);
       ctx.font = "15px Arial";
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
       gradient.addColorStop("0.55", this.c);
@@ -138,6 +139,8 @@ function handleClick(e) {
       5
     );
     bullets.push(circle);
+
+    shotCount++;
   }
 }
 
@@ -198,6 +201,7 @@ function animate() {
           shotMusic.pause();
           shotMusic.currentTime = 0;
           shotMusic.play();
+          hitCount++;
 
           if (enemy.r < 15) {
             enemy.life = 0;
@@ -223,7 +227,10 @@ function animate() {
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
                                        Score: ${scoreCount}<br/>
-                                       Total Kill: ${killCount}`;
+                                       Total Kill: ${killCount}<br/>
+                                       Total Shot: ${shotCount}<br/>
+                                       Total Hit: ${hitCount}<br/>
+                                       Total Miss: ${missCount}<br/>`;
         startDiv.classList.add("show");
         playing = false;
       }
@@ -239,6 +246,8 @@ function animate() {
     bullets.forEach((bullet, bi) => {
       if (bullet.remove()) {
         bullets.splice(bi, 1);
+        missCount++;
+
         clearInterval(holdPress);
       }
 
@@ -249,6 +258,9 @@ function animate() {
     player.draw();
     scoreDiv.innerHTML = `Score : ${scoreCount}`;
     killDiv.innerHTML = `Kill : ${killCount}`;
+    shotDiv.innerHTML = `Shot : ${shotCount}`;
+    hitDiv.innerHTML = `Hit : ${hitCount}`;
+    missDiv.innerHTML = `Miss : ${missCount}`;
   }
 }
 
@@ -272,10 +284,13 @@ function init(isPlaying) {
   }
   scoreCount = 0;
   killCount = 0;
+  shotCount = 0;
+  hitCount = 0;
+  missCount = 0;
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 3; //max. düşman
+  maxEnemy = 1; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
@@ -288,5 +303,8 @@ let player,
   enemies,
   maxEnemy,
   scoreCount,
-  killCount;
+  killCount,
+  shotCount,
+  hitCount,
+  missCount;
 init(playing);

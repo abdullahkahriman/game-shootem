@@ -31,11 +31,20 @@ canvas {
   left: 0;
   padding: 1rem;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
   z-index: 0;
 }
 .info.kill {
-  top: 2rem;
+  top: 1.5rem;
+}
+.info.shot {
+  top: 3rem;
+}
+.info.hit {
+  top: 4.5rem;
+}
+.info.miss {
+  top: 6rem;
 }
 
 #start {
