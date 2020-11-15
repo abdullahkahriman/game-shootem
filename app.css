@@ -46,6 +46,9 @@ canvas {
 .info.miss {
   top: 6rem;
 }
+.info.level {
+  top: 7.5rem;
+}
 
 #start {
   min-width: 15%;
