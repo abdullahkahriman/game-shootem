@@ -4,6 +4,7 @@ const shotDiv = document.getElementById("shot");
 const hitDiv = document.getElementById("hit");
 const missDiv = document.getElementById("miss");
 const levelDiv = document.getElementById("level");
+const enemyDiv = document.getElementById("enemy");
 const startDiv = document.getElementById("start");
 const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
@@ -178,6 +179,10 @@ function addEnemy() {
     );
     enemies.push(circle);
   }
+
+  if (enemies.length >= 5) {
+    enemyCount = enemies.length;
+  }
 }
 
 function collision(x1, y1, r1, x2, y2, r2) {
@@ -270,6 +275,11 @@ function animate() {
     hitDiv.innerHTML = `Hit : ${hitCount}`;
     missDiv.innerHTML = `Miss : ${missCount}`;
     levelDiv.innerHTML = `Level : ${levelCount}`;
+    if (enemyCount >= 5) {
+      enemyDiv.innerHTML = `Enemy : ${enemyCount}`;
+    }else {
+      enemyDiv.innerHTML = '';
+    }
   }
 }
 
@@ -297,6 +307,7 @@ function init(isPlaying) {
   hitCount = 0;
   missCount = 0;
   levelCount = 1;
+  enemyCount = 0;
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
@@ -317,5 +328,6 @@ let player,
   shotCount,
   hitCount,
   missCount,
-  levelCount;
+  levelCount,
+  enemyCount;
 init(playing);
