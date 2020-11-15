@@ -49,6 +49,17 @@ canvas {
 .info.level {
   top: 7.5rem;
 }
+#enemy {
+  position: absolute;
+  bottom: 30px;
+  background: #ff000045;
+  text-align: center;
+  width: 10%;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
 
 #start {
   min-width: 15%;
