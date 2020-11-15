@@ -68,7 +68,7 @@ class Circle {
    * @param {*} color Renk
    * @param {*} speed Hız
    */
-  constructor(startX, finalY, targetX, targetY, radius, color, speed) {
+  constructor(startX, finalY, targetX, targetY, radius, color, speed, life) {
     this.bx = startX;
     this.by = finalY;
     this.tx = targetX;
@@ -78,11 +78,26 @@ class Circle {
     this.r = radius;
     this.c = color;
     this.s = speed;
+    this.life = life;
   }
   draw() {
+    console.log(this.life);
     ctx.fillStyle = this.c;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    if (this.life > 0) {
+      console.log(this.r);
+      ctx.font = "15px Arial";
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      gradient.addColorStop("0.55", this.c);
+      ctx.strokeStyle = gradient;
+
+      ctx.strokeText(
+        this.life + " ❤",
+        this.x - this.r / 2,
+        this.y - this.r - 3
+      );
+    }
     ctx.fill();
     ctx.closePath();
   }
@@ -134,7 +149,7 @@ function addEnemy() {
   for (let index = enemies.length; index < maxEnemy; index++) {
     const random = Math.random() * 30 + 10,
       color = `hsl(${Math.random() * 360},40%,50%)`,
-      speed = 0.5 + (40 - (random / 40) * random) / 160 / maxEnemy; // düşman sayısı arttıkça hızı düşürüyoruz
+      speed = 0.05 + (40 - (random / 40) * random) / 160 / maxEnemy; // düşman sayısı arttıkça hızı düşürüyoruz
 
     let x, y;
     if (Math.random() < 0.5) {
@@ -145,7 +160,16 @@ function addEnemy() {
       y = Math.random() < 0.5 ? height : 0;
     }
 
-    const circle = new Circle(x, y, player.x, player.y, random, color, speed);
+    const circle = new Circle(
+      x,
+      y,
+      player.x,
+      player.y,
+      random,
+      color,
+      speed,
+      100
+    );
     enemies.push(circle);
   }
 }
@@ -170,17 +194,20 @@ function animate() {
         if (
           collision(enemy.x, enemy.y, enemy.r, bullet.x, bullet.y, bullet.r)
         ) {
+          // hedef vuruldu
           shotMusic.pause();
           shotMusic.currentTime = 0;
-          console.log("hedef vuruldu");
           shotMusic.play();
+
           if (enemy.r < 15) {
+            enemy.life = 0;
             enemies.splice(ei, 1);
             scoreCount += 25;
             killCount++;
             if (killCount % 5 === 0) maxEnemy++; //her 5 kill'de düşman sayısını artır.
             addEnemy();
           } else {
+            enemy.life = Math.floor(enemy.life * 0.5);
             enemy.r -= 5;
             scoreCount += 5;
           }
@@ -240,7 +267,7 @@ function init() {
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 1; //max. düşman
+  maxEnemy = 3; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
