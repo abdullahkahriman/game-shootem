@@ -3,6 +3,7 @@ const killDiv = document.getElementById("kill");
 const shotDiv = document.getElementById("shot");
 const hitDiv = document.getElementById("hit");
 const missDiv = document.getElementById("miss");
+const levelDiv = document.getElementById("level");
 const startDiv = document.getElementById("start");
 const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
@@ -212,6 +213,7 @@ function animate() {
             enemies.splice(ei, 1);
             scoreCount += 25;
             killCount++;
+            if (killCount % 15 === 0) levelCount++; // her 15 kill'de level sayısını artır
             if (killCount % 5 === 0) maxEnemy++; //her 5 kill'de düşman sayısını artır.
             addEnemy();
           } else {
@@ -235,7 +237,8 @@ function animate() {
                                        Total Kill: ${killCount}<br/>
                                        Total Shot: ${shotCount}<br/>
                                        Total Hit: ${hitCount}<br/>
-                                       Total Miss: ${missCount}<br/>`;
+                                       Total Miss: ${missCount}<br/>
+                                       Level: ${levelCount}<br/>`;
         startDiv.classList.add("show");
         playing = false;
       }
@@ -266,6 +269,7 @@ function animate() {
     shotDiv.innerHTML = `Shot : ${shotCount}`;
     hitDiv.innerHTML = `Hit : ${hitCount}`;
     missDiv.innerHTML = `Miss : ${missCount}`;
+    levelDiv.innerHTML = `Level : ${levelCount}`;
   }
 }
 
@@ -292,10 +296,11 @@ function init(isPlaying) {
   shotCount = 0;
   hitCount = 0;
   missCount = 0;
+  levelCount = 1;
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 1; //max. düşman
+  maxEnemy = 5; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
@@ -311,5 +316,6 @@ let player,
   killCount,
   shotCount,
   hitCount,
-  missCount;
+  missCount,
+  levelCount;
 init(playing);
