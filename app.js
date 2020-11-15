@@ -27,7 +27,9 @@ canvas.addEventListener("mousedown", function (e) {
   }, 100);
 });
 canvas.addEventListener("mouseup", function () {
-  clearInterval(holdPress);
+  for (let index = 0; index < holdPress; index++) {
+    clearInterval(index)
+  }
 });
 canvas.addEventListener("click", handleClick);
 
@@ -198,9 +200,11 @@ function animate() {
           collision(enemy.x, enemy.y, enemy.r, bullet.x, bullet.y, bullet.r)
         ) {
           // hedef vuruldu
-          shotMusic.pause();
-          shotMusic.currentTime = 0;
-          shotMusic.play();
+          if (shotMusic) {
+            shotMusic.pause();
+            shotMusic.currentTime = 0;
+            shotMusic.play();
+          }
           hitCount++;
 
           if (enemy.r < 15) {
@@ -222,7 +226,8 @@ function animate() {
 
       if (collision(enemy.x, enemy.y, enemy.r, player.x, player.y, player.r)) {
         console.log("oyun bitti");
-        gameOverMusic.play();
+        if (gameOverMusic)
+          gameOverMusic.play();
         clearInterval(holdPress);
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
