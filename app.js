@@ -259,9 +259,17 @@ function createAudio(src) {
   return audio;
 }
 
-function init() {
-  playing = true;
-  startDiv.classList.remove("show");
+function startGame() {
+  init(true);
+}
+
+function init(isPlaying) {
+  playing = isPlaying;
+  if (!isPlaying) {
+    startDiv.classList.add("show");
+  } else {
+    startDiv.classList.remove("show");
+  }
   scoreCount = 0;
   killCount = 0;
   angle = 45;
@@ -274,11 +282,11 @@ function init() {
 }
 
 let player,
-  playing = true,
+  playing = false,
   angle,
   bullets,
   enemies,
   maxEnemy,
   scoreCount,
   killCount;
-init();
+init(playing);
