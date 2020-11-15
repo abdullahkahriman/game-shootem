@@ -149,7 +149,7 @@ function addEnemy() {
   for (let index = enemies.length; index < maxEnemy; index++) {
     const random = Math.random() * 30 + 10,
       color = `hsl(${Math.random() * 360},40%,50%)`,
-      speed = 0.05 + (40 - (random / 40) * random) / 160 / maxEnemy; // düşman sayısı arttıkça hızı düşürüyoruz
+      speed = 0.5 + (40 - (random / 40) * random) / 160 / maxEnemy; // düşman sayısı arttıkça hızı düşürüyoruz
 
     let x, y;
     if (Math.random() < 0.5) {
