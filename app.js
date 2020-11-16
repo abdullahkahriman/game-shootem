@@ -24,9 +24,11 @@ let holdPress;
 
 canvas.addEventListener("mousemove", handleMouseMove);
 canvas.addEventListener("mousedown", function (e) {
-  holdPress = setInterval(function () {
-    handleClick(e);
-  }, 100);
+  if (levelCount >= 3) {
+    holdPress = setInterval(function () {
+      handleClick(e);
+    }, 100);
+  }
 });
 canvas.addEventListener("mouseup", function () {
   for (let index = 0; index < holdPress; index++) {
@@ -289,14 +291,14 @@ function createAudio(src) {
 
 /**
  * Mermi rengi değiştir
- * @param {*} val 
+ * @param {*} val
  */
 function setBulletColor(val) {
   bulletColor = val.value;
 }
 /**
  * Oyuncu rengi değiştir
- * @param {*} val 
+ * @param {*} val
  */
 function setPlayerColor(val) {
   playerColor = val.value;
