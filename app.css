@@ -79,6 +79,9 @@ canvas {
   margin-top: 10px;
   text-transform: uppercase;
 }
+#start .actions label {
+  display: block;
+}
 
 .show {
   opacity: 1 !important;

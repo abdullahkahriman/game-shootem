@@ -287,8 +287,19 @@ function createAudio(src) {
   return audio;
 }
 
+/**
+ * Mermi rengi değiştir
+ * @param {*} val 
+ */
 function setBulletColor(val) {
   bulletColor = val.value;
+}
+/**
+ * Oyuncu rengi değiştir
+ * @param {*} val 
+ */
+function setPlayerColor(val) {
+  playerColor = val.value;
 }
 
 function startGame() {
@@ -310,11 +321,12 @@ function init(isPlaying) {
   levelCount = 1;
   enemyCount = 0;
   bulletColor = bulletColor || "white";
+  playerColor = playerColor || "white";
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 6; //max. düşman
-  player = new Player(width / 2, height / 2, 20, "white");
+  maxEnemy = 1; //max. düşman
+  player = new Player(width / 2, height / 2, 20, playerColor);
   addEnemy();
   animate();
 }
@@ -332,5 +344,6 @@ let player,
   missCount,
   levelCount,
   enemyCount,
-  bulletColor = ""; // kullanıcıdan gelen mermi rengi. varsayılan olarak beyaz olacak.
+  bulletColor = "", // kullanıcıdan gelen mermi rengi. varsayılan olarak beyaz olacak.
+  playerColor = ""; // kullanıcıdan gelen oyuncu rengi. varsayılan olarak beyaz olacak.
 init(playing);
