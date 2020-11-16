@@ -283,7 +283,8 @@ function animate() {
     }
 
     if (!isLongPressShowInfo && holdPress) {
-      infoAlertDiv.innerHTML = "Long press hold is activated";
+      infoAlertDiv.innerHTML = `Long press hold is activated.<br/>
+      <b>Level:</b> 3`;
       setTimeout(() => {
         infoAlertDiv.innerHTML = "";
         isLongPressShowInfo = true;
