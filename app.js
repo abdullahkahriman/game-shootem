@@ -32,6 +32,8 @@ canvas.addEventListener("mouseup", function () {
   for (let index = 0; index < holdPress; index++) {
     clearInterval(index)
   }
+  clearInterval(holdPress)
+
 });
 canvas.addEventListener("click", handleClick);
 
@@ -235,7 +237,6 @@ function animate() {
         console.log("oyun bitti");
         if (gameOverMusic)
           gameOverMusic.play();
-        clearInterval(holdPress);
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
                                        Score: ${scoreCount}<br/>
@@ -260,8 +261,6 @@ function animate() {
       if (bullet.remove()) {
         bullets.splice(bi, 1);
         missCount++;
-
-        clearInterval(holdPress);
       }
 
       bullet.update();
