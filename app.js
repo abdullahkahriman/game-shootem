@@ -4,7 +4,8 @@ const shotDiv = document.getElementById("shot");
 const hitDiv = document.getElementById("hit");
 const missDiv = document.getElementById("miss");
 const levelDiv = document.getElementById("level");
-const enemyDiv = document.getElementById("enemy");
+const alertDiv = document.getElementById("alert");
+const infoAlertDiv = document.getElementById("alert-info");
 const startDiv = document.getElementById("start");
 const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
@@ -148,7 +149,6 @@ function handleClick(e) {
       5
     );
     bullets.push(circle);
-
     shotCount++;
   }
 }
@@ -277,9 +277,17 @@ function animate() {
     missDiv.innerHTML = `Miss : ${missCount}`;
     levelDiv.innerHTML = `Level : ${levelCount}`;
     if (enemyCount >= 5) {
-      enemyDiv.innerHTML = `Enemy : ${enemyCount}`;
+      alertDiv.innerHTML = `Enemy : ${enemyCount}`;
     } else {
-      enemyDiv.innerHTML = "";
+      alertDiv.innerHTML = ``;
+    }
+
+    if (!isLongPressShowInfo && holdPress) {
+      infoAlertDiv.innerHTML = "Long press hold is activated";
+      setTimeout(() => {
+        infoAlertDiv.innerHTML = "";
+        isLongPressShowInfo = true;
+      }, 4000);
     }
   }
 }
@@ -317,6 +325,7 @@ function init(isPlaying) {
   } else {
     startDiv.classList.remove("show");
   }
+  isLongPressShowInfo = false;
   scoreCount = 0;
   killCount = 0;
   shotCount = 0;
@@ -336,6 +345,7 @@ function init(isPlaying) {
 
 let player,
   playing = false,
+  isLongPressShowInfo,
   bullets,
   enemies,
   maxEnemy,

@@ -93,17 +93,27 @@ canvas {
   z-index: 2 !important;
 }
 
-#enemy {
+#alert, #alert-info {
   position: absolute;
   bottom: 30px;
-  -webkit-animation: pulse 0.9s ease-in-out infinite alternate;
-  animation: pulse 0.9s ease-in-out infinite alternate;
   text-align: center;
-  width: 10%;
+  width: auto;
   border-radius: 5px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
+}
+#alert.pulse {
+  -webkit-animation: pulse 0.9s ease-in-out infinite alternate;
+  animation: pulse 0.9s ease-in-out infinite alternate;
+}
+
+#alert-info {
+  bottom: 70px;
+}
+#alert-info.pulse2 {
+  -webkit-animation: pulse2 0.9s ease-in-out infinite alternate;
+  animation: pulse2 0.9s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes pulse {
@@ -123,6 +133,29 @@ canvas {
   }
   50% {
     background: #ff000045;
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+@-webkit-keyframes pulse2 {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #46add645;
+  }
+  100% {
+    background: transparent;
+  }
+}
+@keyframes pulse2 {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #46add645;
   }
   100% {
     background: transparent;
