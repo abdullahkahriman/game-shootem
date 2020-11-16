@@ -236,7 +236,7 @@ function animate() {
         console.log("oyun bitti");
         if (gameOverMusic) gameOverMusic.play();
         startDivBtn.textContent = "TRY AGAIN";
-        startDivParagraph.innerHTML = `<b>Game Over</b><br/>
+        startDivParagraph.innerHTML = `<b>Game Over</b>
                                        Score: ${scoreCount}<br/>
                                        Total Kill: ${killCount}<br/>
                                        Total Shot: ${shotCount}<br/>

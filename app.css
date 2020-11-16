@@ -51,7 +51,7 @@ canvas {
 }
 
 #start {
-  min-width: 15%;
+  min-width: 30%;
   position: absolute;
   top: 0;
   opacity: 0;
@@ -65,7 +65,7 @@ canvas {
   justify-content: center;
   text-align: center;
   align-items: center;
-  z-index: 2;
+  z-index: -1;
   transition: 300ms all ease-in;
 }
 #start * {
@@ -79,6 +79,10 @@ canvas {
   margin-top: 10px;
   text-transform: uppercase;
 }
+#start p b {
+  margin-bottom: 5px;
+  display: block;
+}
 #start .actions label {
   display: block;
 }
@@ -86,6 +90,7 @@ canvas {
 .show {
   opacity: 1 !important;
   top: 50% !important;
+  z-index: 2 !important;
 }
 
 #enemy {
@@ -121,5 +126,11 @@ canvas {
   }
   100% {
     background: transparent;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #start {
+    min-width: 70%;
   }
 }
