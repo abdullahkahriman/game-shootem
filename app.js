@@ -30,10 +30,9 @@ canvas.addEventListener("mousedown", function (e) {
 });
 canvas.addEventListener("mouseup", function () {
   for (let index = 0; index < holdPress; index++) {
-    clearInterval(index)
+    clearInterval(index);
   }
-  clearInterval(holdPress)
-
+  clearInterval(holdPress);
 });
 canvas.addEventListener("click", handleClick);
 
@@ -141,7 +140,7 @@ function handleClick(e) {
       e.pageX,
       e.pageY,
       5,
-      "white",
+      bulletColor,
       5
     );
     bullets.push(circle);
@@ -235,8 +234,7 @@ function animate() {
 
       if (collision(enemy.x, enemy.y, enemy.r, player.x, player.y, player.r)) {
         console.log("oyun bitti");
-        if (gameOverMusic)
-          gameOverMusic.play();
+        if (gameOverMusic) gameOverMusic.play();
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b><br/>
                                        Score: ${scoreCount}<br/>
@@ -276,8 +274,8 @@ function animate() {
     levelDiv.innerHTML = `Level : ${levelCount}`;
     if (enemyCount >= 5) {
       enemyDiv.innerHTML = `Enemy : ${enemyCount}`;
-    }else {
-      enemyDiv.innerHTML = '';
+    } else {
+      enemyDiv.innerHTML = "";
     }
   }
 }
@@ -287,6 +285,10 @@ function createAudio(src) {
   audio.src = src;
   document.querySelector("body").appendChild(audio);
   return audio;
+}
+
+function setBulletColor(val) {
+  bulletColor = val.value;
 }
 
 function startGame() {
@@ -307,10 +309,11 @@ function init(isPlaying) {
   missCount = 0;
   levelCount = 1;
   enemyCount = 0;
+  bulletColor = bulletColor || "white";
   angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
-  maxEnemy = 1; //max. düşman
+  maxEnemy = 6; //max. düşman
   player = new Player(width / 2, height / 2, 20, "white");
   addEnemy();
   animate();
@@ -328,5 +331,6 @@ let player,
   hitCount,
   missCount,
   levelCount,
-  enemyCount;
+  enemyCount,
+  bulletColor = ""; // kullanıcıdan gelen mermi rengi. varsayılan olarak beyaz olacak.
 init(playing);

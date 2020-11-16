@@ -49,17 +49,6 @@ canvas {
 .info.level {
   top: 7.5rem;
 }
-#enemy {
-  position: absolute;
-  bottom: 30px;
-  background: #ff000045;
-  text-align: center;
-  width: 10%;
-  border-radius: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-}
 
 #start {
   min-width: 15%;
@@ -94,4 +83,40 @@ canvas {
 .show {
   opacity: 1 !important;
   top: 50% !important;
+}
+
+#enemy {
+  position: absolute;
+  bottom: 30px;
+  -webkit-animation: pulse 0.9s ease-in-out infinite alternate;
+  animation: pulse 0.9s ease-in-out infinite alternate;
+  text-align: center;
+  width: 10%;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #ff000045;
+  }
+  100% {
+    background: transparent;
+  }
+}
+@keyframes pulse {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #ff000045;
+  }
+  100% {
+    background: transparent;
+  }
 }

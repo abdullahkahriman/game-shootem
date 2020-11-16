@@ -19,6 +19,17 @@
     <div id="start">
         <h3>Shoot Em All</h3>
         <p>Protect yourself against enemies</p>
+        <div class="actions">
+            <label for="bulletColor">
+                Bullet Color: 
+                <input type="color" value="#ffffff" onchange="setBulletColor(this)" name="bulletColor" id="bulletColor">
+            </label>
+            <!-- <select name="bulletColor" id="bulletColor">
+                <option value="red">Red</option>
+                <option value="red">Blue</option>
+                <option value="green">Green</option>
+            </select> -->
+        </div>
         <button type="button" onclick="startGame()">Start Game</button>
     </div>
     <canvas oncontextmenu="return false;" id="canvas"></canvas>
