@@ -45,18 +45,20 @@ class Player {
    * @param {*} y
    * @param {*} radius Yarıçap
    * @param {*} color Renk
+   * @param {*} angle Açı
    */
-  constructor(x, y, radius, color) {
+  constructor(x, y, radius, color, angle) {
     this.x = x;
     this.y = y;
     this.r = radius;
     this.c = color;
+    this.angle = angle;
   }
 
   draw() {
     ctx.save();
     ctx.translate(this.x, this.y);
-    ctx.rotate((angle * Math.PI) / 180);
+    ctx.rotate((this.angle * Math.PI) / 180);
     ctx.fillStyle = this.c;
     ctx.beginPath();
     ctx.arc(0, 0, this.r, 0, Math.PI * 2);
@@ -130,7 +132,7 @@ function handleMouseMove(e) {
       tetha = Math.atan2(distanceY, distanceX);
 
     tetha *= 180 / Math.PI;
-    angle = tetha;
+    player.angle = tetha;
   }
 }
 
@@ -324,18 +326,16 @@ function init(isPlaying) {
   enemyCount = 0;
   bulletColor = bulletColor || "white";
   playerColor = playerColor || "white";
-  angle = 45;
   bullets = []; //mermiler
   enemies = []; //düşmanlar
   maxEnemy = 1; //max. düşman
-  player = new Player(width / 2, height / 2, 20, playerColor);
+  player = new Player(width / 2, height / 2, 20, playerColor, 45);
   addEnemy();
   animate();
 }
 
 let player,
   playing = false,
-  angle,
   bullets,
   enemies,
   maxEnemy,
