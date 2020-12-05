@@ -49,6 +49,9 @@ canvas {
 .info.level {
   top: 7.5rem;
 }
+.info.highScore {
+  top: 9rem;
+}
 
 #start {
   min-width: 30%;

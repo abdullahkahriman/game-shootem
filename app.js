@@ -4,6 +4,7 @@ const shotDiv = document.getElementById("shot");
 const hitDiv = document.getElementById("hit");
 const missDiv = document.getElementById("miss");
 const levelDiv = document.getElementById("level");
+const highScoreDiv = document.getElementById("highScore");
 const alertDiv = document.getElementById("alert");
 const infoAlertDiv = document.getElementById("alert-info");
 const startDiv = document.getElementById("start");
@@ -11,6 +12,8 @@ const startDivBtn = startDiv.querySelector("button");
 const startDivParagraph = startDiv.querySelector("p");
 const shotMusic = createAudio("shot.wav");
 const gameOverMusic = createAudio("game-over.wav");
+
+const LS_HIGH_SCORE = "highScore";
 
 const canvas = document.getElementById("canvas");
 const width = window.innerWidth,
@@ -239,6 +242,13 @@ function animate() {
       if (collision(enemy.x, enemy.y, enemy.r, player.x, player.y, player.r)) {
         console.log("oyun bitti");
         if (gameOverMusic) gameOverMusic.play();
+
+        const ls = localStorage.getItem(LS_HIGH_SCORE);
+        if (!ls) localStorage.setItem(LS_HIGH_SCORE, scoreCount);
+        else {
+          if (ls < scoreCount) localStorage.setItem(LS_HIGH_SCORE, scoreCount);
+        }
+
         startDivBtn.textContent = "TRY AGAIN";
         startDivParagraph.innerHTML = `<b>Game Over</b>
                                        Score: ${scoreCount}<br/>
@@ -246,7 +256,8 @@ function animate() {
                                        Total Shot: ${shotCount}<br/>
                                        Total Hit: ${hitCount}<br/>
                                        Total Miss: ${missCount}<br/>
-                                       Level: ${levelCount}<br/>`;
+                                       Level: ${levelCount}<br/>
+                                       High Score: ${highScoreCount}<br/>`;
         startDiv.classList.add("show");
         playing = false;
       }
@@ -276,6 +287,7 @@ function animate() {
     hitDiv.innerHTML = `Hit : ${hitCount}`;
     missDiv.innerHTML = `Miss : ${missCount}`;
     levelDiv.innerHTML = `Level : ${levelCount}`;
+    highScoreDiv.innerHTML = `High Score : ${highScoreCount}`;
     if (enemyCount >= 5) {
       alertDiv.innerHTML = `Enemy : ${enemyCount}`;
     } else {
@@ -333,6 +345,7 @@ function init(isPlaying) {
   hitCount = 0;
   missCount = 0;
   levelCount = 1;
+  highScoreCount = localStorage.getItem(LS_HIGH_SCORE) || 0;
   enemyCount = 0;
   bulletColor = bulletColor || "white";
   playerColor = playerColor || "white";
@@ -356,6 +369,7 @@ let player,
   hitCount,
   missCount,
   levelCount,
+  highScoreCount,
   enemyCount,
   bulletColor = "", // kullanıcıdan gelen mermi rengi. varsayılan olarak beyaz olacak.
   playerColor = ""; // kullanıcıdan gelen oyuncu rengi. varsayılan olarak beyaz olacak.
